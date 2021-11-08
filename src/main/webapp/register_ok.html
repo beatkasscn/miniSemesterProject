@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <!--导入jquery-->
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/include.js"></script>
+    <script src="js/form-validation.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="css/form-validation.css">
+    <script>
+        function checkRealName(){
+            var realname = $("#realname").val();
+            var reg_realname = /^[\u4e00-\u9fa5]{1,9}$/;
+            var flag = reg_realname.test(realname);
+            if(flag){
+                $("#realname").addClass("is-valid");
+                $("#realname").removeClass("is-invalid");
+                $("#realnameCorrect").show();
+                $("#realnameIncorrect").hide();
+            }else {
+                $("#realname").addClass("is-invalid");
+                $("#realname").removeClass("is-valid");
+                $("#realnameIncorrect").show();
+                $("#realnameCorrect").hide();
+            }
+            return flag;
+        }
+        function checkusername(){
+            var username = $("#username").val();
+            var reg_username = /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
+            var flag = reg_username.test(username);
+            if(flag){
+                $("#username").addClass("is-valid");
+                $("#username").removeClass("is-invalid");
+                $("#usernameCorrect").show();
+                $("#usernameIncorrect").hide();
+            }else {
+                $("#username").addClass("is-invalid");
+                $("#username").removeClass("is-valid");
+                $("#usernameIncorrect").show();
+                $("#usernameCorrect").hide();
+            }
+            return flag;
+        }
+        function checktel(){
+            var tel = $("#tel").val();
+            var reg_tel = /^\d{11}$/;
+            var flag = reg_tel.test(tel);
+            if(flag){
+                $("#tel").addClass("is-valid");
+                $("#tel").removeClass("is-invalid");
+                $("#telCorrect").show();
+                $("#telIncorrect").hide();
+            }else {
+                $("#tel").addClass("is-invalid");
+                $("#tel").removeClass("is-valid");
+                $("#telIncorrect").show();
+                $("#telCorrect").hide();
+            }
+            return flag;
+        }
+        function checkIDnumber(){
+            var IDnumber = $("#IDnumber").val();
+            var reg_IDnumber = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            var flag = reg_IDnumber.test(IDnumber);
+            if(flag){
+                $("#IDnumber").addClass("is-valid");
+                $("#IDnumber").removeClass("is-invalid");
+                $("#IDnumberCorrect").show();
+                $("#IDnumberIncorrect").hide();
+            }else {
+                $("#IDnumber").addClass("is-invalid");
+                $("#IDnumber").removeClass("is-valid");
+                $("#IDnumberIncorrect").show();
+                $("#IDnumberCorrect").hide();
+            }
+            return flag;
+        }
+        function checkAddress(){
+            var address = $("select option:checked").text() + $("#city").val() + $("#detail").val();
+            if($("#city").val() !== null && $("#detail").val()!==null){
+                return true;
+            }else return false;
+        }
+        $(function () {
+
+            $("#realname").blur(checkRealName);
+            $("#username").blur(checkusername);
+            $("#tel").blur(checktel);
+            $("#IDnumber").blur(checkIDnumber);
+            $("#submit").click(function () {
+                if(checkusername() && checkRealName() && checkIDnumber() && checktel() && checkAddress()){
+                    $("#modal_confirm").show();
+                    setTimeout(function(){
+
+                        window.location.href="index.html";
+
+                    },5000);
+                }else {
+                    $("#modal_confirm_error").show();
+                }
+            });
+            $(".close").click(function () {
+                $("#modal_confirm").hide();
+                $("#modal_confirm_error").hide();
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="header"></div>
+<br>
+<br>
+<br>
+<div class="modal alert" tabindex="-1" id="modal_confirm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">提示信息</h5>
+                <button type="button" class="btn-close close jump" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>提交成功！页面即将跳转...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary close jump" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal alert" tabindex="-1" id="modal_confirm_error">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">提示信息</h5>
+                <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>请填写完整的信息</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary close" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <main>
+        <div class="py-5 text-center ">
+            <h2>注册成功！请完善您的个人信息</h2>
+            <p class="lead">请根据相关法律法规，真实的填写个人信息</p>
+        </div>
+
+        <div class="row g-8" style="position: center">
+            <div class="col-md-8 offset-md-2">
+                <h4 class="mb-3">Personal information</h4>
+                <form class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="realname" class="form-label">真实姓名</label>
+                            <input type="text" class="form-control" id="realname" value="" required>
+                            <div class="valid-feedback" style="display: none" id="realnameCorrect">
+                                格式正确！
+                            </div>
+                            <div class="invalid-feedback" style="display: none" id="realnameIncorrect">
+                                请输入您的中文名
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="username" class="form-label">用户名</label>
+                            <input type="text" class="form-control" id="username" value="" required>
+                            <div class="valid-feedback" style="display: none" id="usernameCorrect">
+                                该用户名可用！
+                            </div>
+                            <div class="invalid-feedback" style="display: none" id="usernameIncorrect">
+                                用户名应以字母开头，长度在5-16个字符之间，允许字母数字下划线
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="tel" class="form-label">电话号码</label>
+                            <input type="text" class="form-control" id="tel" value="" required>
+                            <div class="valid-feedback" style="display: none" id="telCorrect">
+                                格式正确！
+                            </div>
+                            <div class="invalid-feedback" style="display: none" id="telIncorrect">
+                                请输入正确的手机号
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="IDnumber" class="form-label">身份证号</label>
+                            <input type="text" class="form-control" id="IDnumber" value="" required>
+                            <div class="valid-feedback" style="display: none" id="IDnumberCorrect">
+                                格式正确!
+                            </div>
+                            <div class="invalid-feedback" style="display: none" id="IDnumberIncorrect">
+                                请输入15或18位数字，最后一位可以为x
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="validationDefault04" class="form-label">省份</label>
+                            <select class="form-select" id="validationDefault04" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option>四川省</option>
+                                <option>重庆市</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="city" class="form-label">市/县/区</label>
+                            <input type="text" class="form-control" id="city" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="detail" class="form-label">详细地址</label>
+                            <input type="text" class="form-control" id="detail" required>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row gy-3">
+                    </div>
+                    <button class="w-100 btn btn-primary btn-lg" type="button" id="submit">点击保存</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <div id="footer"></div>
+</div>
+</body>
+</html>

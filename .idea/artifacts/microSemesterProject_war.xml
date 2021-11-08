@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="microSemesterProject:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>microSemesterProject</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="microSemesterProject-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="microSemesterProject:war exploded" />
+    </root>
+  </artifact>
+</component>

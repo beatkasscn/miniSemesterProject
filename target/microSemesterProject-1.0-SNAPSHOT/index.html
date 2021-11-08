@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>project</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/include.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/headers.css" rel="stylesheet">
+    <link href="css/carousel.css" rel="stylesheet">
+    <link href="css/image.css" rel="stylesheet">
+</head>
+<body>
+<main>
+    <div id="header"></div>
+    <br>
+    <br>
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" >
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="img/cat1.jpg" class="img-fluid" alt="...">
+
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1>这是一只猫猫</h1>
+                        <p>带走这只猫猫只需要1000000000000￥</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">点我了解</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="img/cat2.jpg" class="img-fluid" alt="...">
+
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>这是另一只猫猫</h1>
+                        <p>带走这只猫猫只需要100000000000￥</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">点我购买</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="img/cat3.jpg" class="img-fluid" alt="...">
+
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1>这里有更多猫猫</h1>
+                        <p>把这些猫猫打包带走只需要100000000000000000￥</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">往里进</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <br>
+
+    <div class="container my-5">
+        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+            <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+                <h1 class="display-4 fw-bold lh-1">为什么选择我们呢</h1>
+                <p class="lead">因为我们有最可爱的猫猫啊！！</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">看看呢</button>
+                </div>
+            </div>
+            <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+                <img class="rounded-lg-3" src="img/cat5.png" alt="" width="533">
+            </div>
+        </div>
+    </div>
+    <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <h1 class="display-4 fw-bold">猫猫相册</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">这么多可爱的猫猫你确定不点进来看看嘛</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+                <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">我要看</button>
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4">不感兴趣</button>
+            </div>
+        </div>
+        <div class="overflow-hidden" style="max-height: 30vh;">
+            <div class="container px-5">
+                <img src="img/cat4.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+</main>
+
+</body>
+</html>
