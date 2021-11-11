@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>注册</title>
     <script src="js/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/include.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -70,18 +71,31 @@
         });
     </script>
 </head>
-<body>
+<body style="padding-top: 0">
 <div id="header"></div>
-<br>
-<br>
-<br>
 <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none" id="errormsg">
     <div style="display: none" id="reg_email"><strong>邮箱格式不正确</strong></div>
     <div style="display: none" id="reg_password"><strong>密码格式不正确</strong> 必须包含大小写字母和数字的组合，可以使用特殊字符，长度在8-10之间。</div>
     <button type="button" class="btn-close" id="close" aria-label="Close"></button>
 </div>
 <main class="form-signin">
-    <div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin" style="background-image: url('img/index.png');
+
+    background-position: center 0;
+
+    background-repeat: no-repeat;
+
+    background-attachment: fixed;
+
+    background-size: cover;
+
+    -webkit-background-size: cover;
+
+    -o-background-size: cover;
+
+    -moz-background-size: cover;
+
+    -ms-background-size: cover;">
         <div class="modal-dialog" role="document">
             <div class="modal-content rounded-5 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">

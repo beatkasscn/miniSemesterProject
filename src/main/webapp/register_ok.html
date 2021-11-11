@@ -6,13 +6,24 @@
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <!--导入jquery-->
     <script src="js/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/include.js"></script>
     <script src="js/form-validation.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/modals.css">
-    <link rel="stylesheet" href="css/form-validation.css">
     <script>
+        function getObjectURL(file) {
+            var url = null ;
+            if (window.createObjectURL!=undefined) { // basic
+                url = window.createObjectURL(file) ;
+            } else if (window.URL!=undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file) ;
+            } else if (window.webkitURL!=undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file) ;
+            }
+            return url ;
+        }
         function checkRealName(){
             var realname = $("#realname").val();
             var reg_realname = /^[\u4e00-\u9fa5]{1,9}$/;
@@ -110,14 +121,21 @@
                 $("#modal_confirm_error").hide();
             });
         });
+        $(function() {
+            $("#imginput").click(function () {
+                $("#imginput").on("change",function(){
+                    var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+                    if (objUrl) {
+                        $("#imgsrc").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+                    }
+                });
+            });
+        });
     </script>
 </head>
-<body>
+<body style="padding-top: 0">
 <div id="header"></div>
-<br>
-<br>
-<br>
-<div class="modal alert" tabindex="-1" id="modal_confirm">
+<div class="modal" tabindex="-1" id="modal_confirm">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -152,22 +170,18 @@
 </div>
 <div class="container">
     <main>
-        <div class="py-5 text-center ">
-            <h2>注册成功！请完善您的个人信息</h2>
-            <p class="lead">请根据相关法律法规，真实的填写个人信息</p>
-        </div>
-
-        <div class="row g-8" style="position: center">
-            <div class="col-md-8 offset-md-2">
+        <div class="row g-8">
+            <div class="col-md-6 offset-md-2">
+                <div class="py-5 text-center">
+                    <h2>注册成功！请完善您的个人信息</h2>
+                    <p class="lead">请根据相关法律法规，真实的填写个人信息</p>
+                </div>
                 <h4 class="mb-3">Personal information</h4>
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation " novalidate>
                     <div class="row">
                         <div class="col-12">
                             <label for="realname" class="form-label">真实姓名</label>
                             <input type="text" class="form-control" id="realname" value="" required>
-                            <div class="valid-feedback" style="display: none" id="realnameCorrect">
-                                格式正确！
-                            </div>
                             <div class="invalid-feedback" style="display: none" id="realnameIncorrect">
                                 请输入您的中文名
                             </div>
@@ -176,9 +190,6 @@
                         <div class="col-12">
                             <label for="username" class="form-label">用户名</label>
                             <input type="text" class="form-control" id="username" value="" required>
-                            <div class="valid-feedback" style="display: none" id="usernameCorrect">
-                                该用户名可用！
-                            </div>
                             <div class="invalid-feedback" style="display: none" id="usernameIncorrect">
                                 用户名应以字母开头，长度在5-16个字符之间，允许字母数字下划线
                             </div>
@@ -187,9 +198,6 @@
                         <div class="col-12">
                             <label for="tel" class="form-label">电话号码</label>
                             <input type="text" class="form-control" id="tel" value="" required>
-                            <div class="valid-feedback" style="display: none" id="telCorrect">
-                                格式正确！
-                            </div>
                             <div class="invalid-feedback" style="display: none" id="telIncorrect">
                                 请输入正确的手机号
                             </div>
@@ -198,14 +206,16 @@
                         <div class="col-12">
                             <label for="IDnumber" class="form-label">身份证号</label>
                             <input type="text" class="form-control" id="IDnumber" value="" required>
-                            <div class="valid-feedback" style="display: none" id="IDnumberCorrect">
-                                格式正确!
-                            </div>
                             <div class="invalid-feedback" style="display: none" id="IDnumberIncorrect">
                                 请输入15或18位数字，最后一位可以为x
                             </div>
                         </div>
-
+                        <div class="col-12">
+                            <label for="imginput" class="form-label">
+                                头像上传</label>
+                            <input type="file" accept="image/*" class="form-control" id="imginput" value="">
+                            <img src="img/image.svg" class="rounded-circle" width="180" height="180" alt="..." id="imgsrc">
+                        </div>
                         <div class="col-md-3">
                             <label for="validationDefault04" class="form-label">省份</label>
                             <select class="form-select" id="validationDefault04" required>

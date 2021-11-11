@@ -30,3 +30,6 @@
 .dropdown-toggle {
   outline: 0;
 }
+body{
+  padding-top: 0;
+}
