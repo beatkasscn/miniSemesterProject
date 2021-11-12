@@ -10,12 +10,12 @@
             $("#register").click(function (){
                 window.location.href = "register.html";
             });
-            // $.get("user/findOne",{},function (data) {
-            //     //{uid:1,name:'李四'}
-            //     var msg = "欢迎回来，"+data.name;
-            //     $("#span_username").html(msg);
-            //
-            // });
+            $.get("user/findOne",{},function (data) {
+                //{uid:1,name:'李四'}
+                var imgsrc = data.srcImg;
+                $("#img").attr("src",imgsrc);
+
+            });
         })
     </script>
 </head>
@@ -57,8 +57,8 @@
             </div>
             <a class="nav-link d-none d-md-block d-lg-block">|</a>
             <div class="dropdown text-end">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/cat6.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                <a href="home.html" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="img/cat6.png" alt="mdo" width="32" height="32" class="rounded-circle" id="img">
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                     <li><a class="dropdown-item" href="home.html">个人主页</a></li>

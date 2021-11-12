@@ -12,6 +12,7 @@ com\bestkasscn\dao\UserDaoImpl.class
 com\bestkasscn\web\registerUserServlet.class
 com\bestkasscn\util\UuidUtil.class
 com\bestkasscn\domain\User.class
+com\bestkasscn\web\LoginUserServlet.class
 com\bestkasscn\domain\Route.class
 com\bestkasscn\domain\PageBean.class
 com\bestkasscn\service\UserService.class

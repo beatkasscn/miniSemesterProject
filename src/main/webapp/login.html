@@ -13,7 +13,24 @@
             $("#login2").click(function (){
                 window.location.href = "register.html";
             });
-        })
+            $("#submit").click(function (){
+                $.post("url",$("#loginform").serialize(),function (data) {
+                    $("#msg").show();
+                    if(data.status === 0){
+                        $("msg").toggleClass("alert-error","alert-success");
+                        $("#successmsg").html("登录成功！页面即将跳转");
+                        setTimeout(function(){
+
+                            window.location.href="index.html";
+
+                        },5000);
+                    }else {
+                        $("#errorMsg").html("用户名或密码错误，请重新输入");
+                    }
+                });
+            });
+        });
+
     </script>
 </head>
 <body style="padding-top: 0">
@@ -42,7 +59,12 @@
                 </div>
 
                 <div class="modal-body p-5 pt-0">
-                    <form class="">
+                    <div class="alert alert-error alert-dismissible" id="msg" style="display: none">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <span id="successmsg"></span>
+                        <span id="errormsg"></span>
+                    </div>
+                    <form id="loginform">
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="Email">
                             <label for="floatingInput"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
@@ -57,7 +79,7 @@
                                 <path d="M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z"/>
                             </svg><small class="text-dark"> 密码</small></label>
                         </div>
-                        <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">登录</button>
+                        <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" id="submit">登录</button>
                         <button class="w-100 mb-2 btn btn-lg rounded-4 btn-outline-primary" id="login2" type="button">还没账号？点击注册</button>
                         <small class="text-muted">单击注册，即表示您同意使用条款<a href="#">条款1</a></small>
                         <hr class="my-4">

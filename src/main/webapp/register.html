@@ -41,7 +41,7 @@
             var flag = reg_password.test(password);
             if(flag){
                 $("#password").css("border","1px solid green");
-                $("#reg_password").hide();
+                $("#errormsg").hide();
             }else {
                 $("#password").css("border","1px solid red");
                 $("#errormsg").show();
@@ -54,12 +54,18 @@
                 if(checkEmail() && checkPassword()){
                     $.post("registerUserServlet",$(this).serialize(),function (data){
                         //处理服务器相应的数据
-                        if(data.flag){
+                        $("#msg").show();
+                        if(data.status === 0){
+                            $("#successmsg2").html("注册成功！");
                             //注册成功，跳转成功页面
-                            location.href="register_ok.html";
+                            setTimeout(function(){
+
+                                window.location.href="register_ok.html";
+
+                            },5000);
                         }else{
                             //注册失败,给errorMsg添加提示信息
-                            $("#errorMsg").html(data.errorMsg);
+                            $("#errormsg2").html("该邮箱已注册，请更换其他邮箱或直接登录");
 
                         }
                     })
@@ -105,15 +111,16 @@
                 </div>
 
                 <div class="modal-body p-5 pt-0">
+                    <div class="alert alert-error alert-dismissible" id="msg" style="display: none">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <span id="successmsg2"></span>
+                        <span id="errormsg2"></span>
+                    </div>
                     <form class="" id="registerForm" action="/registerUserServlet">
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control rounded-4" id="email" placeholder="Email">
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
                             <label for="email"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
                                 <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
-
                             </svg><small class="text-dark">邮箱地址</small></label>
                         </div>
                         <div class="form-floating mb-3">
