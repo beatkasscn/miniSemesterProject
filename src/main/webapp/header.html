@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="js/jquery.cookie.js"></script>
     <script>
         $(function (){
             $("#login").click(function (){
@@ -10,14 +11,18 @@
             $("#register").click(function (){
                 window.location.href = "register.html";
             });
-            $.get("user/findOne",{},function (data) {
-                //{uid:1,name:'李四'}
-                var imgsrc = data.srcImg;
-                $("#img").attr("src",imgsrc);
-
-            });
+            $("#img").attr("src",$.cookie("srcImg"));
+            if($.cookie("userid") != null){
+                $("#login_out").hide();
+                $("#login_in").show();
+                $("#username").html($.cookie("username"));
+            }else {
+                $("#login_in").hide();
+                $("#login_out").show();
+            }
         })
     </script>
+
 </head>
 <header class="p-3 bg-light text-black sticky-top flex-md-nowrap" id="header">
     <div class="container">
@@ -51,14 +56,14 @@
                 <li><a href="#" class="nav-link px-2 text-primary">关于我们</a></li>
             </ul>
 
-            <div class="text-end">
+            <div class="text-end" id="login_out">
                 <button type="button" class="btn btn-outline-primary" id="login">登录</button>
                 <button type="button" class="btn btn-primary" id="register">注册</button>
             </div>
-            <a class="nav-link d-none d-md-block d-lg-block">|</a>
-            <div class="dropdown text-end">
+            <div class="dropdown text-end" id="login_in">
                 <a href="home.html" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="img/cat6.png" alt="mdo" width="32" height="32" class="rounded-circle" id="img">
+                    <span id="username" class="text-primary"></span>
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                     <li><a class="dropdown-item" href="home.html">个人主页</a></li>
