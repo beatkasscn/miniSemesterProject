@@ -2,47 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Dashboard Template · Bootstrap v5.1</title>
+    <title>个人界面</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
     <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/jquery.cookie.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
     <script src="js/include.js"></script>
-    <script type="text/javascript" src="js/include.js"></script>
+    <script src="js/save_info.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="js/dashboard.js"></script>
-
-
-
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
-
-
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 </head>
 <body style="padding-top: 0">
 
 <div id="header"></div>
+<div class="modal" tabindex="-1" id="modal_confirm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">提示信息</h5>
+                <button type="button" class="btn-close close jump" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>提交成功！页面即将跳转...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary close jump" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal alert" tabindex="-1" id="modal_confirm_error">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">提示信息</h5>
+                <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>请填写完整的信息</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary close" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -53,7 +61,7 @@
                         <path d="M8 16.016a7.5 7.5 0 0 0 1.962-14.74A1 1 0 0 0 9 0H7a1 1 0 0 0-.962 1.276A7.5 7.5 0 0 0 8 16.016zm6.5-7.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
                         <path d="m6.94 7.44 4.95-2.83-2.83 4.95-4.949 2.83 2.828-4.95z"/>
                     </svg>
-                    <span class="fs-4">余治酉</span>
+                    <span class="fs-4" id="display_username"></span>
                 </a>
                 <hr>
                 <ul class="nav flex-column">
@@ -94,68 +102,59 @@
         </nav>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom col-md-8">
-                <form class="needs-validation" novalidate>
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="realname" class="form-label">真实姓名</label>
-                            <input type="text" class="form-control" id="realname" value="" required>
-                            <div class="invalid-feedback" style="display: none" id="realnameIncorrect">
-                                请输入您的中文名
+            <div class="row g-8">
+                <div class="col-md-6 offset-md-2">
+                    <h2 class="mb-3 text-center">Personal information</h2>
+                    <form class="needs-validation " novalidate enctype="multipart/form-data" id="saveform" method="post">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="realname" class="form-label">真实姓名</label>
+                                <input type="text" class="form-control" id="realname" value="" required name="realName">
+                                <div class="invalid-feedback" style="display: none" id="realnameIncorrect">
+                                    请输入您的中文名
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-12">
-                            <label for="username" class="form-label">用户名</label>
-                            <input type="text" class="form-control" id="username" value="" required>
-                            <div class="invalid-feedback" style="display: none" id="usernameIncorrect">
-                                用户名应以字母开头，长度在5-16个字符之间，允许字母数字下划线
+                            <div class="col-12">
+                                <label for="username1" class="form-label">用户名</label>
+                                <input type="text" class="form-control" id="username1" value="" required name="username">
+                                <div class="invalid-feedback" style="display: none" id="usernameIncorrect">
+                                    用户名应以字母开头，长度在5-16个字符之间，允许字母数字下划线
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-12">
-                            <label for="tel" class="form-label">电话号码</label>
-                            <input type="text" class="form-control" id="tel" value="" required>
-                            <div class="invalid-feedback" style="display: none" id="telIncorrect">
-                                请输入正确的手机号
+                            <div class="col-12">
+                                <label for="tel" class="form-label">电话号码</label>
+                                <input type="text" class="form-control" id="tel" value="" required name="tel">
+                                <div class="invalid-feedback" style="display: none" id="telIncorrect">
+                                    请输入正确的手机号
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-12">
-                            <label for="IDnumber" class="form-label">身份证号</label>
-                            <input type="text" class="form-control" id="IDnumber" value="" required>
-                            <div class="invalid-feedback" style="display: none" id="IDnumberIncorrect">
-                                请输入15或18位数字，最后一位可以为x
+                            <div class="col-12">
+                                <label for="IDnumber" class="form-label">身份证号</label>
+                                <input type="text" class="form-control" id="IDnumber" value="" required name="IDNumber">
+                                <div class="invalid-feedback" style="display: none" id="IDnumberIncorrect">
+                                    请输入15或18位数字，最后一位可以为x
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="imginput" class="form-label">
+                                    头像上传</label>
+                                <input type="file" accept="image/*" class="form-control" id="imginput" value="" name="srcImg">
+                                <img src="img/image.svg" class="rounded-circle" width="180" height="180" alt="..." id="imgsrc">
+                            </div>
+                            <div class="col-12">
+                                <label for="detail" class="form-label">详细地址</label>
+                                <input type="text" class="form-control" id="detail" required name="address">
                             </div>
                         </div>
-                        <div class="col-12">
-                            <label for="imginput" class="form-label">
-                                头像上传</label>
-                            <input type="file" accept="image/*" class="form-control" id="imginput" value="">
-                            <img src="img/image.svg" class="rounded-circle" width="180" height="180" alt="..." id="imgsrc">
+                        <hr class="my-4">
+                        <div class="row gy-3">
                         </div>
-                        <div class="col-md-3">
-                            <label for="validationDefault04" class="form-label">省份</label>
-                            <select class="form-select" id="validationDefault04" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option>四川省</option>
-                                <option>重庆市</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="city" class="form-label">市/县/区</label>
-                            <input type="text" class="form-control" id="city" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="detail" class="form-label">详细地址</label>
-                            <input type="text" class="form-control" id="detail" required>
-                        </div>
-                    </div>
-                    <hr class="my-4">
-                    <div class="row gy-3">
-                    </div>
-                    <button class="w-100 btn btn-primary btn-lg" type="button" id="submit">点击保存</button>
-                </form>
+                        <button class="w-100 btn btn-primary btn-lg" type="button" id="save">点击保存</button>
+                    </form>
+                </div>
             </div>
         </main>
     </div>

@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:mysql://182.61.23.159:3306/cat_platform</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="catplatform" uuid="5ce9c3e3-bc69-4780-b51f-45f9a94a5438">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://116.62.186.193:3306/catplatform</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -67,12 +67,14 @@
                 if(checkEmail() && checkPassword()){
                     $.post("http://localhost:8080/user/regist",$("#registerForm").serialize(),function (data) {
                         if(data.status === 0){
+                            $.cookie("srcImg","http://localhost:8080/images/avatar.jpg");
+                            $.cookie("username","用户" + parseInt(Math.random()*100));
                             $("#msg1").html("注册成功！页面即将跳转");
                             $("#msg").removeClass("alert-danger");
                             $("#msg").addClass("alert-success");
                             setTimeout(function(){
 
-                                window.location.href="register_ok.html";
+                                window.location.href="home.html";
 
                             },3000);
                         }else{
@@ -89,7 +91,6 @@
             $("#password").blur(checkPassword);
             $("#send").click(function () {
                 $.post("http://localhost:8080/user/getEmailCode",{email:$("#email").val()},function (data) {
-
                 });
             });
         });
