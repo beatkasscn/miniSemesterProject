@@ -3,6 +3,7 @@
 
 <head>
     <script src="js/jquery.cookie.js"></script>
+    <script src="js/save_info.js"></script>
     <script>
         $(function (){
             $("#login").click(function (){
@@ -75,9 +76,9 @@
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                     <li><a class="dropdown-item" href="home.html">个人主页</a></li>
                     <li><a class="dropdown-item" href="#">我的购物车</a></li>
-                    <li><a class="dropdown-item" href="#">设置</a></li>
+                    <li><a class="dropdown-item" href="#">修改密码</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">退出</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="exit()">退出</a></li>
                 </ul>
             </div>
         </div>

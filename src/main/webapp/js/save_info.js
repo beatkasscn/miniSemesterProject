@@ -9,7 +9,17 @@ function getObjectURL(file) {
     }
     return url;
 }
+function exit() {
+    $.removeCookie("username");
+    $.removeCookie("userid");
+    $.removeCookie("srcImg");
+    $("#modal_exit").show();
+    setTimeout(function(){
 
+        window.location.href="index.html";
+
+    },1000);
+}
 function checkRealName() {
     var realname = $("#realname").val();
     var reg_realname = /^[\u4e00-\u9fa5]{1,9}$/;
@@ -89,7 +99,14 @@ function checkAddress() {
     } else return false;
 }
 
+function GetJsonData() {
+    var json = {
+        "email": $("#user_email").val()
+    };
+    return json;
+}
 $(function () {
+    $("#user_email").val($.cookie("email"));
     $("#display_username").html($.cookie("username"));
     $("#realname").blur(checkRealName);
     $("#username1").blur(checkusername1);
@@ -120,4 +137,23 @@ $(function () {
             }
         })
     });
-})
+});
+$(function () {
+    $("#img_submit").click(function () {
+        var formData = new FormData($('#img_upload')[0]);
+        var email = $("#user_email").val();
+        $.ajax({
+            type: 'post',
+            url: "http://localhost:8080/user/saveImg", //上传文件的请求路径必须是绝对路劲
+            data:formData,
+            cache: false,
+            processData: false,
+            contentType: "application/json",
+            dataType:"json",
+        }).success(function (data) {
+            alert(data);
+        }).error(function () {
+            alert("上传失败");
+        });
+    });
+});
